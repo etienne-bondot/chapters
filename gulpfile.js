@@ -33,7 +33,7 @@ var paths = {
 /////////////////////////////////////////////////////////////////////////////////////
 
 gulp.task('clean', function() {
-	return del(['./dist']);
+	return del(['./dist'], { force: true });
 });
 
 
@@ -74,7 +74,7 @@ gulp.task('browserSync', function() {
 /////////////////////////////////////////////////////////////////////////////////////
 
 gulp.task('useref', function() {
-	return gulp.src(paths.html)
+	return gulp.src('./app/index.html')
 		.pipe(useref())
 		// Minifies only if it's a JavaScript file
 		.pipe(gulpIf('*.js', uglify()))
@@ -116,10 +116,10 @@ gulp.task('jshint', function() {
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-gulp.task('watch', ['clean', 'sass', 'jshint', 'useref', 'browserSync'], function() {
-	gulp.watch(paths.js, ['jshint', browserSync.reload]);
-	gulp.watch(paths.html, browserSync.reload);
-	gulp.watch(paths.scss, ['sass']);
+gulp.task('watch', ['sass', 'jshint', 'useref', 'browserSync'], function() {
+	gulp.watch(paths.js, ['jshint', 'useref', browserSync.reload]);
+	gulp.watch(paths.html, ['useref', browserSync.reload]);
+	gulp.watch(paths.scss, ['sass', 'useref']);
 });
 
 /////////////////////////////////////////////////////////////////////////////////////

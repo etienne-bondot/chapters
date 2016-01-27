@@ -4,8 +4,20 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
-  background-color: #e5eaed;
   overflow: auto; }
+
+header {
+  height: 3em;
+  line-height: 4em;
+  top: 0;
+  position: fixed;
+  width: 100%;
+  background: #f7f7f7;
+  border-bottom: 1px solid rgba(184, 184, 184, 0.5); }
+  header h1 {
+    text-align: center;
+    font-family: "sfOldRepublic", sans-serif;
+    margin: 0; }
 
 footer {
   bottom: 0;
@@ -20,9 +32,39 @@ footer {
 ul {
   list-style-type: none; }
 
+@font-face {
+  font-family: "sfOldRepublic";
+  src: url("../fonts/SFOldRepublic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "DayDreamer";
+  src: url("../fonts/Daydreamer.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: "TravelingTypewriter";
+  src: url("../fonts/TravelingTypewriter.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
 #home {
-  margin-top: 150px;
-  text-align: center; }
+  margin-top: 100px; }
+  #home .book-container {
+    width: 33%;
+    margin: 0 auto;
+    height: 500px;
+    border: solid 1px rgba(184, 184, 184, 0.5);
+    border-radius: 5px; }
+    #home .book-container .book-content {
+      text-align: justify;
+      font-family: "TravelingTypewriter", sans-serif;
+      font-size: 12px;
+      padding: 10px; }
+    #home .book-container .page-num {
+      text-align: center; }
 
 .typed-cursor {
   opacity: 1;

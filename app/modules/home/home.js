@@ -31,6 +31,8 @@
 			'Second sentence',
 			'Final sentence'
 		];
+
+		$.pageNum = 1;
 	}
 
 })();

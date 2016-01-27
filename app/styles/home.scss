@@ -1,4 +1,22 @@
 #home {
-	margin-top: 150px;
-	text-align: center;
+	margin-top: 100px;
+
+	.book-container {
+		width: 33%;
+	    margin: 0 auto;
+	    height: 500px;
+	    border: solid 1px $gray-light;
+		border-radius: 5px;
+
+		.book-content {
+			text-align: justify;
+			font-family: "TravelingTypewriter", sans-serif;
+			font-size: 12px;
+			padding: 10px;
+		}
+	}
+	.page-num {
+		text-align: center;
+		margin-top: 20px;
+	}
 }

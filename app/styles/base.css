@@ -1,0 +1,25 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #e5eaed;
+  overflow: auto; }
+
+footer {
+  bottom: 0;
+  position: fixed;
+  text-align: right;
+  width: 100%; }
+
+* {
+  padding: 0;
+  margin: 0; }
+
+ul {
+  list-style-type: none; }
+
+#home {
+  margin-top: 150px;
+  text-align: center; }

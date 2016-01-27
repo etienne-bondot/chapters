@@ -20,7 +20,7 @@ var paths = {
 		'./app/modules/**/*.js'
 	],
 	scss: [
-		'./app/styles/*.scss'
+		'./app/styles/base.scss'
 	],
 	html: [
 		'./app/components/**/*.html',
@@ -65,7 +65,7 @@ gulp.task('browserSync', function() {
 			baseDir: 'dist'
 		},
 	})
-})
+});
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
@@ -165,7 +165,9 @@ gulp.task('sass', function() {
 gulp.task('lint', function() {
 	return gulp.src(paths.js)
 		.pipe(jshint())
-		.pipe(jshint.reporter('default', { verbose: true }))
+		.pipe(jshint.reporter('default', {
+			verbose: true
+		}))
 		.pipe(jshint.reporter('fail'));
 });
 
@@ -177,7 +179,7 @@ gulp.task('lint', function() {
 
 gulp.task('watch', ['browserSync'], function() {
 	gulp.watch(paths.js, ['lint', 'useref', browserSync.reload]);
-	gulp.watch(paths.html, ['useref', browserSync.reload]);
+	gulp.watch(paths.html, ['useref', 'copy-modules-html-files', browserSync.reload]);
 	gulp.watch('./app/index.html', ['useref', browserSync.reload]);
 	gulp.watch(paths.scss, ['sass', 'useref']);
 });
@@ -186,7 +188,7 @@ gulp.task('watch', ['browserSync'], function() {
 //
 // runs build tasks using runSequence
 // to ensure that cleans get completed before the rest of the tasks
-// because in a classic way Gulp activates all tasks in the second argument simultaneously. 
+// because in a classic way Gulp activates all tasks in the second argument simultaneously.
 //
 /////////////////////////////////////////////////////////////////////////////////////
 

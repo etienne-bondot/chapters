@@ -6,7 +6,10 @@ var gulp = require('gulp'),
 	uglify = require('gulp-uglify'),
 	cssnano = require('gulp-cssnano'),
 	imagemin = require('gulp-imagemin'),
+	cache = require('gulp-cache'),
 	gulpIf = require('gulp-if'),
+	runSequence = require('run-sequence'),
+	install = require("gulp-install"),
 	browserSync = require('browser-sync');
 
 
@@ -20,9 +23,8 @@ var paths = {
 		'./app/styles/*.scss'
 	],
 	html: [
-		'./app/components/*.html',
-		'./app/modules/**/*.html',
-		'./app/index.html'
+		'./app/components/**/*.html',
+		'./app/modules/**/*.html'
 	]
 };
 
@@ -32,24 +34,23 @@ var paths = {
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-gulp.task('clean', function() {
-	return del(['./dist'], { force: true });
+gulp.task('clean:dist', function() {
+	return del.sync('dist');
 });
 
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
-// runs bower to install frontend dependencies
+// runs install-dependencies to install frontend dependencies
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-gulp.task('bower', function() {
-	var install = require("gulp-install");
-
+gulp.task('install-dependencies', function() {
 	return gulp.src([
-		'./bower.json',
-		'./package.json'
-	]).pipe(install());
+			'./bower.json',
+			'./package.json'
+		])
+		.pipe(install());
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -61,14 +62,15 @@ gulp.task('bower', function() {
 gulp.task('browserSync', function() {
 	browserSync({
 		server: {
-			baseDir: 'app'
+			baseDir: 'dist'
 		},
 	})
 })
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
-// runs useref, concatenate all the reference between <!--build:js js/main.min.js --><!-- endbuild -->
+// runs useref, concatenate and minify all the reference between
+// <!--build:js js/main.min.js --><!-- endbuild -->
 // in the source file
 //
 /////////////////////////////////////////////////////////////////////////////////////
@@ -81,6 +83,62 @@ gulp.task('useref', function() {
 		// Minifies only if it's a CSS file
 		.pipe(gulpIf('*.css', cssnano()))
 		.pipe(gulp.dest('./dist'))
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+//
+// runs minify-imgs to minify png, jpg, gif and even svg
+//
+/////////////////////////////////////////////////////////////////////////////////////
+
+gulp.task('minify-imgs', function() {
+	return gulp.src('./app/images/**/*.+(png|jpg|gif|svg)')
+		.pipe(cache(imagemin()))
+		.pipe(gulp.dest('./dist/images'))
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+//
+// runs copy-fonts to move fonts to the dist directory
+//
+/////////////////////////////////////////////////////////////////////////////////////
+
+gulp.task('copy-fonts', function() {
+	return gulp.src('./app/fonts/**/*')
+		.pipe(gulp.dest('./dist/fonts'))
+})
+
+/////////////////////////////////////////////////////////////////////////////////////
+//
+// runs copy-bower-components
+//
+/////////////////////////////////////////////////////////////////////////////////////
+
+gulp.task('copy-bower-components', function() {
+	gulp.src('./app/bower_components/**')
+		.pipe(gulp.dest('./dist/bower_components'));
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+//
+// runs copy-components-html-files
+//
+/////////////////////////////////////////////////////////////////////////////////////
+
+gulp.task('copy-components-html-files', function() {
+	gulp.src('./app/components/**/*.html')
+		.pipe(gulp.dest('./dist/components'));
+});
+
+/////////////////////////////////////////////////////////////////////////////////////
+//
+// runs copy-modules-html-files
+//
+/////////////////////////////////////////////////////////////////////////////////////
+
+gulp.task('copy-modules-html-files', function() {
+	gulp.src('./app/modules/**/*.html')
+		.pipe(gulp.dest('./dist/modules'));
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -100,14 +158,15 @@ gulp.task('sass', function() {
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
-// runs jshint
+// runs the linter
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-gulp.task('jshint', function() {
+gulp.task('lint', function() {
 	return gulp.src(paths.js)
 		.pipe(jshint())
-		.pipe(jshint.reporter('default'));
+		.pipe(jshint.reporter('default', { verbose: true }))
+		.pipe(jshint.reporter('fail'));
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -116,16 +175,45 @@ gulp.task('jshint', function() {
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-gulp.task('watch', ['sass', 'jshint', 'useref', 'browserSync'], function() {
-	gulp.watch(paths.js, ['jshint', 'useref', browserSync.reload]);
+gulp.task('watch', ['browserSync'], function() {
+	gulp.watch(paths.js, ['lint', 'useref', browserSync.reload]);
 	gulp.watch(paths.html, ['useref', browserSync.reload]);
+	gulp.watch('./app/index.html', ['useref', browserSync.reload]);
 	gulp.watch(paths.scss, ['sass', 'useref']);
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
-// installs and builds everything, including sprites
+// runs build tasks using runSequence
+// to ensure that cleans get completed before the rest of the tasks
+// because in a classic way Gulp activates all tasks in the second argument simultaneously. 
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-gulp.task('default', ['bower', 'watch']);
+gulp.task('build', function(callback) {
+	runSequence('clean:dist', [
+		'sass',
+		'useref',
+		'minify-imgs',
+		'copy-fonts',
+		'copy-bower-components',
+		'copy-components-html-files',
+		'copy-modules-html-files',
+		'lint'
+	], callback);
+});
+
+gulp.task('default', function(callback) {
+	runSequence('clean:dist', [
+		'install-dependencies',
+		'sass',
+		'useref',
+		'minify-imgs',
+		'copy-fonts',
+		'copy-bower-components',
+		'copy-components-html-files',
+		'copy-modules-html-files',
+		'lint',
+		'watch'
+	], callback);
+});

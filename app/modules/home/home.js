@@ -1,3 +1,5 @@
+/*jshint latedef: nofunc */
+
 (function() {
 
 	'use strict';

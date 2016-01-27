@@ -1,3 +1,5 @@
+/*jshint latedef: nofunc */
+
 'use strict';
 
 describe('chapters.version module', function() {
@@ -9,7 +11,8 @@ describe('chapters.version module', function() {
 		}));
 
 		it('should replace VERSION', inject(function(interpolateFilter) {
-			expect(interpolateFilter('before %VERSION% after')).toEqual('before TEST_VER after');
+			expect(interpolateFilter('before %VERSION% after'))
+				.toEqual('before TEST_VER after');
 		}));
 	});
 });

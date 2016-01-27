@@ -1,13 +1,60 @@
 {
-	"globalstrict": true,
+	// Define globals exposed by modern browsers.
+	"browser": true,
+
+	// Define globals exposed by Node.js.
+	"node": true,
+
+	// Allow ES6.
+	"esnext": true,
+
+	/*
+	 * ENFORCING OPTIONS
+	 * =================
+	 */
+
+	"bitwise": true,
+
+	// Prohibit use of == and != in favor of === and !==.
+	"eqeqeq": true,
+
+	// Enforce tab width of 4 spaces.
+	"indent": 4,
+
+	// Enforce use of single quotation marks for strings.
+	"quotmark": "single",
+
+	// Enforce line length to 80 characters
+	"maxlen": 80,
+
+	"curly": true,
+	"latedef": true,
+	"noarg": true,
+
+	// Enforce placing 'use strict' at the top function scope
+	"strict": "global",
+
+	// Prohibit use of explicitly undeclared variables.
+	"undef": true,
+
+	// Warn when variables are defined but never used.
+	"unused": true,
+
 	"globals": {
 		"angular": false,
-		"describe": false,
-		"it": false,
-		"expect": false,
-		"beforeEach": false,
-		"afterEach": false,
-		"module": false,
-		"inject": false
+		"inject": false,
+	    /* MOCHA */
+	    "describe"   : false,
+	    "it"         : false,
+	    "before"     : false,
+	    "beforeEach" : false,
+	    "after"      : false,
+	    "afterEach"  : false,
+		"expect"	 : false
+	},
+
+	"devel": {
+		"console": true,
+		"alert": true
 	}
 }

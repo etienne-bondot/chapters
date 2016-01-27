@@ -1,3 +1,5 @@
+/*jshint latedef: nofunc */
+
 'use strict';
 
 describe('chapters.version module', function() {

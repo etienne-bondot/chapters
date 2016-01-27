@@ -1,3 +1,5 @@
+/*jshint latedef: nofunc */
+
 'use strict';
 
 angular.module('chapters.version.interpolate-filter', [])

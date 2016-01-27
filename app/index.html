@@ -27,15 +27,24 @@
 		<div ng-view></div>
 		<footer>Chapters: v<span app-version></span></footer>
 
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="bower_components/typedjs/dist/typed.min.js"></script>
 		<script src="bower_components/angular/angular.min.js"></script>
 		<script src="bower_components/angular-route/angular-route.min.js"></script>
 
 		<!--build:js js/main.min.js -->
 		<script src="app.js"></script>
-		<script src="modules/home/home.js"></script>
-		<script src="components/version/version.js"></script>
-		<script src="components/version/version-directive.js"></script>
-		<script src="components/version/interpolate-filter.js"></script>
+
+			<!-- modules -->
+			<script src="modules/home/home.js"></script>
+
+			<!-- components -->
+			<script src="components/typedjs/typedjs-directive.js"></script>
+
+			<script src="components/version/version.js"></script>
+			<script src="components/version/version-directive.js"></script>
+			<script src="components/version/interpolate-filter.js"></script>
+
 		<!--endbuild-->
 	</body>
 

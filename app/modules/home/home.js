@@ -26,7 +26,11 @@
 	];
 
 	function HomeCtrl($) {
-
+		$.texttyping = [
+			'Hello, this is the first sentence',
+			'Second sentence',
+			'Final sentence'
+		];
 	}
 
 })();

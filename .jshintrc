@@ -50,7 +50,8 @@
 	    "beforeEach" : false,
 	    "after"      : false,
 	    "afterEach"  : false,
-		"expect"	 : false
+		"expect"	 : false,
+		"chance"	 : false
 	},
 
 	"devel": {

@@ -13,6 +13,7 @@
     "html5-boilerplate": "~5.2.0"
   },
   "devDependencies": {
-    "typed.js": "typedjs#~1.1.1"
+    "typed.js": "typedjs#~1.1.1",
+    "chance": "~0.8.0"
   }
 }

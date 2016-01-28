@@ -24,14 +24,23 @@
 	/** CONTROLLER **/
 
 	HomeCtrl.$inject = [
-		'$scope'
+		'$scope',
+		'Book'
 	];
 
-	function HomeCtrl($) {
+	function HomeCtrl($, Book) {
+		$.book = new Book();
+		$.book.addChapter();
+
+		// $.texttyping = [
+		// 	'Hello, this is the first sentence',
+		// 	'Second sentence',
+		// 	'Final sentence'
+		// ];
+
 		$.texttyping = [
-			'Hello, this is the first sentence',
-			'Second sentence',
-			'Final sentence'
+			'<br><br><br><br><br>' + $.book .title + '<br><br><br><br><br>',
+			$.book.getCurrentChapter().text
 		];
 
 		$.pageNum = 1;

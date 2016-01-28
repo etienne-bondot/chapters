@@ -3,7 +3,8 @@
 angular.module('chapters', [
 	'ngRoute',
 	'chapters.home',
-	'chapters.version'
+	'chapters.version',
+	'luegg.directives'
 ])
 
 .config(['$routeProvider', function($routeProvider) {

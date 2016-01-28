@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "typed.js": "typedjs#~1.1.1",
-    "chance": "~0.8.0"
+    "chance": "~0.8.0",
+    "angular-scroll-glue": "~2.0.6"
   }
 }

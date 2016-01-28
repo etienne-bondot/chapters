@@ -25,11 +25,16 @@
 
 	HomeCtrl.$inject = [
 		'$scope',
+		'$interval',
 		'Book'
 	];
 
-	function HomeCtrl($, Book) {
-		$.book = new Book();
+	function HomeCtrl($, $interval, Book) {
+		$interval(function () {
+			$.glue = true;
+		}, 5);
+
+		$.book = new Book('The perk of being a wallflower.');
 		$.book.addChapter();
 
 		// $.texttyping = [
@@ -38,10 +43,10 @@
 		// 	'Final sentence'
 		// ];
 
-		$.texttyping = [
+		$.strings = [
 			'<br><br><br><br><br><span style="text-align:center; font-weight:bold; font-size:18px">' +
 			 	$.book .title + '</span><br><br><br><br><br>',
-			$.book.getCurrentChapter().text
+			'<span style="text-align:justify;">' + $.book.getCurrentChapter().text + '</span>'
 		];
 
 		$.pageNum = 1;

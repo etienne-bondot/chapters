@@ -12,8 +12,7 @@
 
 	function typedjsDirective() {
 
-		function link(scope) {
-
+		function link(scope, elem) {
 			// treat the array of strings as a unique string
 			scope.text = [scope.strings.join(' ')];
 
@@ -23,9 +22,9 @@
 				// (must wrap each string in a <p>)
 				stringsElement: null,
 				// typing speed
-				typeSpeed: 25,
+				typeSpeed: 5,
 				// time before typing starts
-				startDelay: 0,
+				startDelay: 5,
 				// backspacing speed
 				backSpeed: 0,
 				// time before backspacing
@@ -45,7 +44,8 @@
 				// call when done callback function
 				callback: function() {},
 				// starting callback function before each string
-				preStringTyped: function() {},
+				preStringTyped: function() {
+				},
 				//callback for every typed string
 				onStringTyped: function() {},
 				// callback for reset
@@ -53,15 +53,13 @@
 			};
 
 			$(function() {
-				$('#typed-output').typed(options);
+				elem.typed(options);
 			});
 		}
 
 		return {
 			restrict: 'E',
-			scope: {
-				strings: '='
-			},
+			scope: false,
 			template: '<span id="typed-output"></span>',
 			link: link
 		};

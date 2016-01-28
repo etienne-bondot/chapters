@@ -60,7 +60,8 @@ ul {
     border-radius: 5px;
     -webkit-box-shadow: inset -1px -1px 0px 0px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: inset -1px -1px 0px 0px rgba(0, 0, 0, 0.5);
-    box-shadow: inset -1px -1px 0px 0px rgba(0, 0, 0, 0.5); }
+    box-shadow: inset -1px -1px 0px 0px rgba(0, 0, 0, 0.5);
+    overflow: auto; }
     #home .book-container .book-content {
       text-align: justify;
       font-family: "TravelingTypewriter", sans-serif;

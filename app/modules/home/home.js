@@ -39,7 +39,8 @@
 		// ];
 
 		$.texttyping = [
-			'<br><br><br><br><br>' + $.book .title + '<br><br><br><br><br>',
+			'<br><br><br><br><br><span style="text-align:center; font-weight:bold; font-size:18px">' +
+			 	$.book .title + '</span><br><br><br><br><br>',
 			$.book.getCurrentChapter().text
 		];
 

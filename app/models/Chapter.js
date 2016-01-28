@@ -14,6 +14,7 @@
 		function Chapter(characters) {
 			this.text = '';
 			this.characters = characters;
+			this.lastCharacter = null;
 			this.sentenceNumber = chance.natural({ min: 1, max: 100 });
 
 			/**
@@ -32,18 +33,23 @@
 			};
 
 			this.generateSentence = function() {
-				var randomCharacter = this.randomCharacter(),
+				var randCharacter = this.randomCharacter(),
 					sentence = [];
 
-				if (randomCharacter === null) {
+				if (randCharacter === null) {
 					// just generate a paragraph
-					sentence.push(chance.paragraph());
-				} else {
+					sentence.push('<br>' + chance.paragraph());
+				} else if (randCharacter !== this.lastCharacter) {
 					// generate a sentence with NAME: SENTENCE
-					sentence.push(randomCharacter + ': ');
-					sentence.push(chance.sentence());
+					sentence.push('<br><span style="font-weight:bold; font-style: italic;">' +
+						randCharacter + ': </span>');
+					sentence.push('<span style="font-size: 9px;">' + chance.sentence() + '</span>');
+				} else {
+					sentence.push(' <span style="font-size: 9px;">' + chance.sentence() + '</span>');
 				}
-				return sentence;
+
+				this.lastCharacter = randCharacter;
+				return sentence.join(' ');
 			};
 
 			// building

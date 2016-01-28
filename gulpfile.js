@@ -17,7 +17,8 @@ var paths = {
 	js: [
 		'./app/app.js',
 		'./app/components/**/*.js',
-		'./app/modules/**/*.js'
+		'./app/modules/**/*.js',
+		'./app/models/*.js'
 	],
 	scss: [
 		'./app/styles/base.scss'

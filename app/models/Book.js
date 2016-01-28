@@ -13,8 +13,8 @@
 
 	function BookModel(Chapter) {
 
-		function Book() {
-			this.title = chance.sentence({ words: 5 });
+		function Book(title) {
+			this.title = title || chance.sentence({ words: 5 });
 			this.chapters = [];
 			this.characters = [];
 			this.numCharacter = chance.natural({ min: 1, max: 4 });
